@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useCMS, useForm, usePlugin } from "tinacms";
 import { InlineForm, InlineTextarea } from "react-tinacms-inline";
+import { HtmlFieldPlugin, MarkdownFieldPlugin } from "react-tinacms-editor";
 
 import "./body.css";
 import {
@@ -21,6 +22,9 @@ import EditButton from "../EditButton/EditButton";
 
 export default function Body() {
   const cms = useCMS();
+  cms.plugins.add(HtmlFieldPlugin);
+  cms.plugins.add(MarkdownFieldPlugin);
+
   const initalValues = {
     firstOpition: "GitHub",
     fisrtOptionUrl: "https://github.com/patrick0806",
@@ -36,10 +40,9 @@ export default function Body() {
     messageInput: "Mensagem",
     name: "Patrick Nicezi",
     backgroundColor: "#ccc",
-    description:"Sou um programador de 22 anos,atualmente estudando sobre a tina.io onde podemos desenvolver um cms para testar clique no botão editar",
-    xp:[
-      "Ainda Não Possuo"
-    ]
+    description:
+      "Sou um programador de 22 anos,atualmente estudando sobre a tina.io onde podemos desenvolver um cms para testar clique no botão editar",
+    xp: ["Ainda Não Possuo"],
   };
 
   const formConfig = {
@@ -109,15 +112,15 @@ export default function Body() {
       {
         name: "description",
         label: "Nome do botão",
-        component: "textarea",
+        component: "markdown",
       },
       {
-        label: 'Experiencias',
-        name: 'xp',
-        component: 'list',
+        label: "Experiencias",
+        name: "xp",
+        component: "list",
         defaultItem: 0,
         field: {
-          component: 'text',
+          component: "text",
         },
       },
     ],
@@ -135,7 +138,7 @@ export default function Body() {
 
   return (
     <div
-      style={{ backgroundColor: editableData.backgroundColor}}
+      style={{ backgroundColor: editableData.backgroundColor }}
       className="col-12 aling"
     >
       <div className="col-12">
@@ -163,14 +166,16 @@ export default function Body() {
         <div className="col-12">
           <div className="row justify-content-center">
             <img
-              style={{marginTop:10}}
+              style={{ marginTop: 10 }}
               src={editableData.imagem}
               width={editableData.imageWidth}
               height={editableData.imageHeigth}
             />
           </div>
           <div style={{ textAlign: "center" }} className="Row">
-            <div className="col-12"><h2>{editableData.name}</h2></div>
+            <div className="col-12">
+              <h2>{editableData.name}</h2>
+            </div>
             <div
               style={{ textAlign: "center", width: "100%" }}
               className="col-12"
@@ -182,8 +187,8 @@ export default function Body() {
               </InlineForm>
             </div>
             <div className="body-width">
-                <h3>Experiencias</h3>
-                <li>{editableData.xp}</li>
+              <h3>Experiencias</h3>
+              <li>{editableData.xp}</li>
             </div>
           </div>
         </div>
@@ -214,7 +219,7 @@ export default function Body() {
             <Input type="textarea" name="text" id="exampleText" />
           </FormGroup>
         </Form>
-          <Button color="primary">Submit</Button>
+        <Button color="primary">Submit</Button>
       </div>
     </div>
   );
